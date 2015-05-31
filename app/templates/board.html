@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}FlaskTutorial{% endblock %}
+
+{% block logInOut_content %}
+<li><a href="{{ url_for('main.index') }}">LogOut</a></li>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    {% if not known %}
+    <p>Pleased to meet you!</p>
+    {% else %}
+    <p>Happy to see you again!</p>
+    {% endif %}
+</div>
+{{ wtf.quick_form(form) }}
+<hr/>
+<div>
+    <ul>
+        {% for entry in entries %}
+            <li><h4>
+                    <p>Post ID: {{ entry[0] }} 
+                       Post Time: {{ entry[1] }}
+                    </p>
+                </h4> 
+                <p>{{ entry[2] }}</p>
+        {% else %}
+            <li><em>Unbelievable.  No entries here so far</em>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
