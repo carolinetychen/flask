@@ -69,27 +69,15 @@ def board():
     for line in f:
         count += 1
         if redis_db.get("id") is None or count >= int(redis_db.get("id")):
-            s = []
             s = line.split(" ")
-            text = int(s[0])
-            timestamp = float(s[1])
+            timestamp = float(s[0])
+            text = int(s[1])
 
             name = session.get('name')
             uid = redis_db.incr("id")
             redis_db.zadd(timeset, "%d" % uid, timestamp)
             redis_db.sadd("%d" % uid, text)
         entries = getEntries(redis_db)
-    """
-    if board.validate_on_submit():
-        name = session.get('name')
-        timestamp = time.time()
-        text = board.text.data
-
-        uid = redis_db.incr("id")
-        redis_db.zadd(timeset, "%d" % uid, timestamp)
-        redis_db.sadd("%d" % uid, text)
-        entries = getEntries(redis_db)
-    """
 
     return render_template('board.html', form=board, name=session.get('name'),
                            known=session.get('known', True),
