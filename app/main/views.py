@@ -68,7 +68,7 @@ def board():
 
     for line in f:
         count += 1
-        if redis_db.get("id") is None or count >= int(redis_db.get("id")):
+        if redis_db.get("id") is None or count > int(redis_db.get("id")):
             s = line.split(" ")
             timestamp = float(s[0])
             text = int(s[1])
