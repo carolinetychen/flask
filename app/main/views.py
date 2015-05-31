@@ -68,7 +68,7 @@ def board():
 
     for line in f:
         count += 1
-        if count > int(redis_db.get("id")):
+        if redis_db.get("id") is None or count >= int(redis_db.get("id")):
             s = []
             s = line.split(" ")
             text = int(s[0])
